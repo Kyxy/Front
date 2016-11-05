@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="button"  value="btn1" id="btn1">
+
+    <script type="text/javascript">
+        var btn1 = document.getElementById("btn1");
+        function showMes() {
+          alert("haha");
+        }
+
+        var eventUtil = {
+          //添加事件
+          addHandler: function(element, event, handler) {      //此处传入的参数不带'on'
+            if(element.addEventHandler) {
+              element.addEventHandler(event, handler, false);
+            } else if(element.attachEvent) {
+              element.attachEvent('on'+event, handler);   //注意增加'on'
+            } else {  //如果不支持DOM2级事件处理程序，则使用DOM0级事件处理，直接给属性赋值
+              element['on'+event] = handler;
+            }
+          },
+          //删除事件
+          removeHandler: function(element, event, handler) {      //此处传入的参数不带'on'
+            if(element.removeEventHandler) {
+              element.removerEventHandler(event, handler, false);
+            } else if(element.detachEvent) {
+              element.detachEvent('on'+event, handler);   //注意增加'on'
+            } else {  //如果不支持DOM2级事件处理程序，则使用DOM0级事件处理，直接给属性赋值
+              element['on'+event] = null;
+            }
+          }
+        }
+
+        eventUtil.addHandler(btn1, 'click', showMes);
+    </script>
+  </body>
+</html>
